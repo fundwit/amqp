@@ -738,10 +738,12 @@ func (c *Connection) openTune(config Config, auth Authentication) error {
 			"version": defaultVersion,
 		}
 	}
-
-	config.Properties["capabilities"] = Table{
-		"connection.blocked":     true,
-		"consumer_cancel_notify": true,
+	
+	if config.Properties["capabilities"] == nil {
+		config.Properties["capabilities"] = Table{
+			"connection.blocked":     true,
+			"consumer_cancel_notify": true,
+		}
 	}
 
 	ok := &connectionStartOk{
